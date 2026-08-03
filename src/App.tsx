@@ -25,6 +25,7 @@ export default function App() {
       userVoiceName: 'Fenrir',
       selectedMicDeviceId: '',
       selectedOutputDeviceId: '',
+      selectedMicOutputDeviceId: '',
       systemOutputVolume: 0.9,
       micOutputVolume: 0.9,
       echoCancellation: true,

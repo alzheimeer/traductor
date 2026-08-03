@@ -35,6 +35,7 @@ export class LiveAudioClient {
       userVoiceName: 'Puck',
       selectedMicDeviceId: '',
       selectedOutputDeviceId: '',
+      selectedMicOutputDeviceId: '',
       systemOutputVolume: 0.9,
       micOutputVolume: 0.9,
       echoCancellation: true,
@@ -49,6 +50,11 @@ export class LiveAudioClient {
 
     if (this.settings.selectedOutputDeviceId) {
       this.systemAudioPlayer.setOutputDevice(this.settings.selectedOutputDeviceId);
+    }
+    
+    if (this.settings.selectedMicOutputDeviceId) {
+      this.micAudioPlayer.setOutputDevice(this.settings.selectedMicOutputDeviceId);
+    } else if (this.settings.selectedOutputDeviceId) {
       this.micAudioPlayer.setOutputDevice(this.settings.selectedOutputDeviceId);
     }
   }
@@ -60,6 +66,11 @@ export class LiveAudioClient {
 
     if (newSettings.selectedOutputDeviceId) {
       this.systemAudioPlayer.setOutputDevice(newSettings.selectedOutputDeviceId);
+    }
+    
+    if (newSettings.selectedMicOutputDeviceId) {
+      this.micAudioPlayer.setOutputDevice(newSettings.selectedMicOutputDeviceId);
+    } else if (newSettings.selectedOutputDeviceId) {
       this.micAudioPlayer.setOutputDevice(newSettings.selectedOutputDeviceId);
     }
   }

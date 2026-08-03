@@ -6,7 +6,8 @@ export interface AppSettings {
   systemVoiceName: 'Fenrir' | 'Kore' | 'Puck' | 'Charon' | 'Zephyr';
   userVoiceName: 'Puck' | 'Charon' | 'Kore' | 'Fenrir' | 'Zephyr';
   selectedMicDeviceId: string; // Specific microphone device ID
-  selectedOutputDeviceId: string; // Specific speaker/virtual cable output device ID
+  selectedOutputDeviceId: string; // Specific speaker for System Audio
+  selectedMicOutputDeviceId: string; // Specific virtual cable for Mic Audio
   systemOutputVolume: number; // 0 to 1
   micOutputVolume: number;    // 0 to 1
   echoCancellation: boolean;

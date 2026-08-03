@@ -120,10 +120,35 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               </p>
             </div>
 
-            {/* Output Speaker / Cable selector */}
+            {/* Output Mic Audio to Virtual Cable */}
             <div>
               <label className="block text-slate-300 font-medium mb-1 flex items-center gap-1">
-                <Headphones className="w-3.5 h-3.5 text-cyan-400" /> Salida de Audio (Altavoces o Cable Virtual):
+                <Headphones className="w-3.5 h-3.5 text-amber-400" /> Salida de Traducción (Cable Virtual):
+              </label>
+              <select
+                value={settings.selectedMicOutputDeviceId}
+                onChange={(e) => onUpdateSettings({ ...settings, selectedMicOutputDeviceId: e.target.value })}
+                className="w-full bg-slate-900 border border-slate-800 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500"
+              >
+                <option value="">Por Defecto del Sistema / Igual que Altavoces</option>
+                {audioOutputs.map((d, index) => (
+                  <option key={d.deviceId || index} value={d.deviceId}>
+                    {d.label || `Dispositivo de Salida ${index + 1}`}
+                  </option>
+                ))}
+              </select>
+              <p className="text-[11px] text-slate-400 mt-1">
+                Selecciona CABLE Input aquí para enviar tu voz traducida a Teams.
+              </p>
+            </div>
+            
+            {/* Empty column or spacer if we wanted a 2x2 grid, but let's make the Output Speaker span if needed, or just add it below */}
+          </div>
+          <div className="grid grid-cols-1 gap-4 text-xs pt-2">
+            {/* Output Speaker selector */}
+            <div>
+              <label className="block text-slate-300 font-medium mb-1 flex items-center gap-1">
+                <Headphones className="w-3.5 h-3.5 text-cyan-400" /> Salida de Audio PC (Altavoces locales):
               </label>
               <select
                 value={settings.selectedOutputDeviceId}
@@ -138,7 +163,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                 ))}
               </select>
               <p className="text-[11px] text-slate-400 mt-1">
-                La voz traducida por Gemini se reproducirá por esta salida.
+                Escucharás el audio de Teams (traducido a Español) por aquí.
               </p>
             </div>
           </div>
