@@ -11,10 +11,10 @@ const PORT = 3105;
 
 app.use(express.json({ limit: '50mb' }));
 
-const getGeminiClient = () => {
-  const apiKey = process.env.GEMINI_API_KEY;
+const getGeminiClient = (clientApiKey?: string) => {
+  const apiKey = clientApiKey || process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    console.warn('GEMINI_API_KEY is missing from environment variables');
+    console.warn('GEMINI_API_KEY is missing from environment variables and client did not provide one.');
   }
   return new GoogleGenAI({
     apiKey: apiKey || '',
@@ -46,6 +46,7 @@ interface ClientSession {
     userTargetLanguage: string;
     systemVoiceName: string;
     userVoiceName: string;
+    userApiKey?: string;
   };
   geminiSessions: {
     system_audio?: Session;
@@ -59,9 +60,10 @@ async function createGeminiLiveSession(
   clientWs: WebSocket,
   channel: 'system_audio' | 'user_mic',
   targetLanguage: string,
-  voiceName: string
+  voiceName: string,
+  clientApiKey?: string
 ): Promise<Session> {
-  const ai = getGeminiClient();
+  const ai = getGeminiClient(clientApiKey);
 
   const config = {
     responseModalities: [Modality.AUDIO],
@@ -177,7 +179,7 @@ wss.on('connection', (clientWs: WebSocket) => {
            const targetLang = channel === 'system_audio' ? session.settings.systemTargetLanguage : session.settings.userTargetLanguage;
            const voiceName = channel === 'system_audio' ? session.settings.systemVoiceName : session.settings.userVoiceName;
            try {
-               session.geminiSessions[channel] = await createGeminiLiveSession(clientWs, channel, targetLang, voiceName);
+               session.geminiSessions[channel] = await createGeminiLiveSession(clientWs, channel, targetLang, voiceName, session.settings.userApiKey);
                console.log(`Initialized Gemini Live session for ${channel}`);
            } catch (e) {
                console.error(`Failed to create Gemini Live session for ${channel}`, e);

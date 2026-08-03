@@ -81,6 +81,36 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
           </button>
         </div>
 
+        {/* API Key Section (BYOK) */}
+        <div className="space-y-3 bg-emerald-950/20 border border-emerald-800/40 p-4 rounded-xl">
+          <h3 className="text-xs font-semibold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+            <SettingsIcon className="w-4 h-4" /> Licencia y API Key (BYOK)
+          </h3>
+          <div className="text-[11px] text-slate-300 space-y-2">
+            <p>
+              Esta aplicación requiere acceso a la inteligencia artificial de Google. Puedes usar tu propia clave de desarrollo gratuita.
+            </p>
+            <p>
+              Obtén tu clave gratis aquí:{' '}
+              <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noreferrer" className="text-emerald-400 hover:underline font-bold">
+                Google AI Studio
+              </a>
+            </p>
+          </div>
+          <div>
+            <label className="block text-slate-300 font-medium mb-1 flex items-center gap-1 text-xs">
+              Google Gemini API Key:
+            </label>
+            <input
+              type="password"
+              placeholder="AIzaSy..."
+              value={settings.userApiKey || ''}
+              onChange={(e) => onUpdateSettings({ ...settings, userApiKey: e.target.value })}
+              className="w-full bg-slate-900 border border-slate-800 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-emerald-500 font-mono"
+            />
+          </div>
+        </div>
+
         {/* Device Picker Section */}
         <div className="space-y-3 bg-indigo-950/30 border border-indigo-800/60 p-4 rounded-xl">
           <div className="flex items-center justify-between">

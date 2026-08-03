@@ -12,6 +12,7 @@ export interface AppSettings {
   micOutputVolume: number;    // 0 to 1
   echoCancellation: boolean;
   noiseSuppression: boolean;
+  userApiKey?: string; // BYOK (Bring Your Own Key) Google Gemini API Key
 }
 
 export interface AudioTranslationEvent {

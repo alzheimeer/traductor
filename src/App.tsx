@@ -143,6 +143,8 @@ export default function App() {
     setMicActive(false);
   };
 
+  const effectiveHasApiKey = hasApiKey || Boolean(settings.userApiKey);
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
       {/* Header Bar */}
@@ -150,7 +152,7 @@ export default function App() {
         systemActive={systemActive}
         micActive={micActive}
         latencyMs={latencyMs}
-        hasApiKey={hasApiKey}
+        hasApiKey={effectiveHasApiKey}
         onOpenSettings={() => setShowSettings(true)}
         onOpenTestSimulator={() => setShowSimulator(true)}
       />
@@ -228,7 +230,7 @@ export default function App() {
         <AudioTestSimulator
           client={clientRef.current}
           onClose={() => setShowSimulator(false)}
-          hasApiKey={hasApiKey}
+          hasApiKey={effectiveHasApiKey}
         />
       )}
 
